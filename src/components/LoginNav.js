@@ -107,8 +107,8 @@ const LoginNav = ({ setIsOpen, isOpen, className, logoClassName, color }) => {
                 </span>
               </NextLink>
               <div className="flex flex-wrap pb-10">
-                {navData[hovered].menu.map((m) => (
-                  <NextLink href={m.link} legacyBehavior>
+                {navData[hovered].menu.map((m, i) => (
+                  <NextLink href={m.link} legacyBehavior key={i}>
                     <a className="w-[33%] py-3 text-lg text-black-500">
                       {m.title}
                     </a>
@@ -132,11 +132,11 @@ LoginNav.defaultProps = {
 };
 
 const navData = [
-//   {
-//     id: 1,
-//     title: "About us",
-//     link: "/about-us",
-//   },
+  //   {
+  //     id: 1,
+  //     title: "About us",
+  //     link: "/about-us",
+  //   },
   // {
   //   id: 2,
   //   title: "Contact us",
