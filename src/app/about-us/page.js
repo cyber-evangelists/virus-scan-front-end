@@ -1,7 +1,10 @@
+import { NavBar } from "@/components";
 import React from "react";
 
 const page = () => {
   return (
+    <>
+    <NavBar />
     <div className="min-h-screen flex items-center justify-center text-white mt-[3rem]">
       <div className="w-full max-w-lg p-8 bg-white dark:bg-gray-800 rounded-lg shadow-md border">
         <h2 className="text-4xl font-extrabold text-red-600 dark:text-white mb-6">
@@ -38,6 +41,7 @@ const page = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

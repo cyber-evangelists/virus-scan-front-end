@@ -2,23 +2,17 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import NextLink from "next/link";
-import { deleteCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
-const NavBar = ({ setIsOpen, isOpen, className, logoClassName, color }) => {
+
+const LoginNav = ({ setIsOpen, isOpen, className, logoClassName, color }) => {
   const [activeLink, setActiveLink] = useState(null);
   const [scrollActive, setScrollActive] = useState(false);
   const [hovered, setHovered] = useState(-1);
-  const router = useRouter()
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScrollActive(window.scrollY > 20);
     });
   }, []);
-
-  const handleLogout = () => {
-    deleteCookie("access_token_virus_scan");
-    router.push("/login")
-  };
   return (
     <>
       <header
@@ -77,14 +71,11 @@ const NavBar = ({ setIsOpen, isOpen, className, logoClassName, color }) => {
                 </NextLink>
               ))}
 
-              {/* <NextLink href="/login"> */}
-              <button
-                onClick={handleLogout}
-                className="self-center font-primary transition-all text-white-500 font-medium px-4 py-1 rounded-2xl"
-              >
-                Logout
-              </button>
-              {/* </NextLink> */}
+              <NextLink href="/signup">
+                <button className="self-center font-primary transition-all text-white-500 font-medium px-4 py-1 rounded-2xl">
+                  Signup
+                </button>
+              </NextLink>
             </ul>
             {/* Mobile Navigation */}
 
@@ -132,34 +123,34 @@ const NavBar = ({ setIsOpen, isOpen, className, logoClassName, color }) => {
   );
 };
 
-export default NavBar;
+export default LoginNav;
 
-NavBar.defaultProps = {
+LoginNav.defaultProps = {
   className:
     "px-4 py-2 mx-2 cursor-pointer animation-hover inline-block relative text-black-900 ",
   logoClassName: "text-white-400",
 };
 
 const navData = [
-  {
-    id: 1,
-    title: "About us",
-    link: "/about-us",
-  },
+//   {
+//     id: 1,
+//     title: "About us",
+//     link: "/about-us",
+//   },
   // {
   //   id: 2,
   //   title: "Contact us",
   //   link: "/contact-us",
   // },
-  // {
-  //   id: 3,
-  //   title: "login",
-  //   link: "/login",
-  //   //   menu: [
-  //   //     {
-  //   //       title: "Data and Artificial Intelligence",
-  //   //       link: "/what-we-do/artificial-intelligence",
-  //   //     },
-  //   //   ],
-  // },
+  {
+    id: 3,
+    title: "login",
+    link: "/login",
+    //   menu: [
+    //     {
+    //       title: "Data and Artificial Intelligence",
+    //       link: "/what-we-do/artificial-intelligence",
+    //     },
+    //   ],
+  },
 ];
