@@ -52,7 +52,7 @@ const NavBar = ({ setIsOpen, isOpen, className, logoClassName, color }) => {
               </span>
             </NextLink>
 
-            <ul className="hidden lg:flex col-start-4 font-primary col-end-8 items-center">
+            <ul className="hidden sm:flex col-start-4 font-primary col-end-8 items-center">
               {navData.map((n, i) => (
                 <NextLink
                   href={n.link || {}}
@@ -88,14 +88,7 @@ const NavBar = ({ setIsOpen, isOpen, className, logoClassName, color }) => {
             </ul>
             {/* Mobile Navigation */}
 
-            {!isOpen && (
-              <div
-                className="lg:hidden cursor-pointer"
-                onClick={() => setIsOpen(true)}
-              >
-                <AiOutlineMenu className=" text-3xl z-30 text-primary hover:text-primary-variant" />
-              </div>
-            )}
+          
 
             {/* End Mobile Navigation */}
           </nav>
