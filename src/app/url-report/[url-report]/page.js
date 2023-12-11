@@ -12,18 +12,18 @@ const page = () => {
   const [clickedKey, setClickedKey] = useState("");
   const [otherScan, setOtherScan] = useState([])
   const pathname = usePathname();
-  const id = pathname.replace("/scan-report/", "");
+  const id = pathname.replace("/url-report/", "");
 
   const getScanResult = async () => {
     try {
       const token = getCookie("access_token_virus_scan");
-      const response = await axios.get("/api/file-scan/get-scan-report", {
+      const response = await axios.get("/api/url-scan/get-scan-report", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         params: {
-          scanId: id,
+            scanId : id,
         },
       });
       setScanData(response?.data);
@@ -31,6 +31,7 @@ const page = () => {
       const firstAside = Object.keys(response?.data?.scan_report?.scans);
       setSelectedKey(firstAside[0]);
       setClickedKey(firstAside[0]);
+    //   console.log("api/url-scan/get-scan-report", response);
 
     //   const otherScankeys = Object.keys(response?.data?.scan_report?.other_scan);
     //   setOtherScan(otherScankeys)
@@ -90,14 +91,14 @@ const page = () => {
                   result:{" "}
                   {scanData?.scan_report?.scans[selectedKey]?.result || "null"}
                 </p>
-                <p>
+                {/* <p>
                   update:{" "}
                   {scanData?.scan_report?.scans[selectedKey]?.update || "null"}
                 </p>
                 <p>
                   version:{" "}
                   {scanData?.scan_report?.scans[selectedKey]?.version || "null"}
-                </p>
+                </p> */}
               </div>
 
               {/* <div className="p-4 m-4 bg-white shadow-md rounded-md">
@@ -119,7 +120,7 @@ const page = () => {
 
               <div className="p-4 m-4 bg-white shadow-md rounded-md">
                 <h2 className="text-xl font-bold mb-2">
-                  {scanData?.filename || "null"}
+                  {scanData?.url || "null"}
                 </h2>
                 <p>{formatDate(scanData?.created_at) || "null"}</p>
               </div>
@@ -130,9 +131,9 @@ const page = () => {
                     scanData?.scan_report?.total || 0
                   }` || 0}
                 </h2>
-                <p>MD5: {scanData?.scan_report?.md5 || "null"}</p>
-                <p>SHA1: {scanData?.scan_report?.sha1 || "null"}</p>
-                <p>SHA256: {scanData?.scan_report?.sha256 || "null"}</p>
+                <p>Resource: {scanData?.scan_report?.resource || "null"}</p>
+                {/* <p>SHA1: {scanData?.scan_report?.sha1 || "null"}</p> */}
+                {/* <p>SHA256: {scanData?.scan_report?.sha256 || "null"}</p> */}
               </div>
               {/* Add more cards as needed */}
             </main>

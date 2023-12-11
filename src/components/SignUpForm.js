@@ -133,7 +133,7 @@ const SignUpForm = () => {
                     htmlFor="userName"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    UserName
+                    User Name
                   </label>
                   <input
                     type="text"
@@ -183,7 +183,7 @@ const SignUpForm = () => {
                   />
                 </div>
 
-                <div className="flex items-start">
+                {/* <div className="flex items-start">
                   <div className="flex items-center h-5">
                     <input
                       id="terms"
@@ -207,7 +207,7 @@ const SignUpForm = () => {
                       </a>
                     </label>
                   </div>
-                </div>
+                </div> */}
                 <button
                   type="submit"
                   className="w-full text-white bg-[#DC2626] hover:bg-[#AF1D1D] focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
