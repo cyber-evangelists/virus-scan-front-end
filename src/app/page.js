@@ -7,7 +7,9 @@ import { useCallback, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Home() {
+  
   const [searchType, setSearchType] = useState("url");
+
   const [lodaing, setLoading] = useState(false);
   const [urlLodaing, setUrlLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -17,62 +19,65 @@ export default function Home() {
   const router = useRouter();
   const handleButtonClick = (type) => {
     setSearchType(type);
-    setSearch("");
-    setSelectedFile(null);
+    // setSearch("");
+    // setSelectedFile(null);
   };
-  // /api/url-scan/scan
 
-  const handleSubmit = useCallback(async (e) => {
-    e.preventDefault();
-    try {
-      setUrlLoading(true);
-      const token = getCookie("access_token_virus_scan");
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        setUrlLoading(true);
+        const token = getCookie("access_token_virus_scan");
 
-      const response = await axios.post(
-        `/api/url-scan/scan`,
-        { url: search },
-        {
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+        const response = await axios.post(
+          `/api/url-scan/scan`,
+          { url: search },
+          {
+            headers: {
+              accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response?.data?.status) {
+          toast.success("Completed!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         }
-      );
-
-      if (response?.data?.status) {
-        toast.success("Completed!", {
+        // console.log("try: ", response?.data?.status);
+      } catch (error) {
+        console.log("catch error: ", error);
+        toast.error("Something went wrong!", {
           position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: true,
+          autoClose: 5000,
+          hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
           theme: "light",
         });
+      } finally {
+        setUrlLoading(false);
       }
-      // console.log("try: ", response?.data?.status);
-    } catch (error) {
-      console.log("catch error: ", error);
-      toast.error("Something went wrong!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } finally {
-      setUrlLoading(false);
-    }
-  }, [search]);
+    },
+    [search]
+  );
 
   useEffect(() => {
     const token = getCookie("access_token_virus_scan");
     // console.log("token:::" , token);
+    setSearchType("url");
     const fetechScanResults = async () => {
       try {
         // setUrlLoading(true)
@@ -96,67 +101,70 @@ export default function Home() {
     };
 
     fetechScanResults();
-  }, [handleSubmit, urlLodaing ]);
+  }, [handleSubmit, urlLodaing]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
   };
 
-  const handleFileUpload = useCallback(async (e) => {
-    e.preventDefault();
-    try {
-      const token = getCookie("access_token_virus_scan");
+  const handleFileUpload = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        const token = getCookie("access_token_virus_scan");
 
-      if (selectedFile) {
-        console.log("Uploading file:", selectedFile);
+        if (selectedFile) {
+          console.log("Uploading file:", selectedFile);
 
-        setLoading(true);
+          setLoading(true);
 
-        const response = await axios.post(
-          `/api/file-scan/scan`,
-          { file: selectedFile },
-          {
-            headers: {
-              accept: "application/json",
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
-            },
+          const response = await axios.post(
+            `/api/file-scan/scan`,
+            { file: selectedFile },
+            {
+              headers: {
+                accept: "application/json",
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (response?.data?.filename) {
+            toast.success("Uploaded!", {
+              position: "top-center",
+              autoClose: 2000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
           }
-        );
-
-        if (response?.data?.filename) {
-          toast.success("Uploaded!", {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          // console.log("try: ", response);
+        } else {
+          console.error("No file selected for upload.");
         }
-        // console.log("try: ", response);
-      } else {
-        console.error("No file selected for upload.");
+      } catch (error) {
+        console.log("catch error: ", error);
+        toast.error("Something went wrong!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.log("catch error: ", error);
-      toast.error("Something went wrong!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } finally {
-      setLoading(false);
-    }
-  }, [selectedFile]);
+    },
+    [selectedFile]
+  );
 
   useEffect(() => {
     const token = getCookie("access_token_virus_scan");
@@ -211,7 +219,7 @@ export default function Home() {
       <section className="min-h-screen container mx-auto flex justify-center flex-col gap-10 items-center">
         <div className="bg-gray-100 px-4 sm:mx-0 flex justify-start gap-5 w-[95%] sm:w-[80%] md:[70%] lg:[60%]">
           <button
-            className={`py-4 focus:border-b-2 ${
+            className={`py-4 border-b-2 ${
               searchType === "url" ? "border-red-600" : "border-transparent"
             } px-8 text-lg md:text-xl font-medium`}
             onClick={() => handleButtonClick("url")}
@@ -219,7 +227,7 @@ export default function Home() {
             URL
           </button>
           <button
-            className={`py-4 focus:border-b-2 ${
+            className={`py-4 border-b-2 ${
               searchType === "file" ? "border-red-600" : "border-transparent"
             } px-8 text-lg md:text-xl font-medium`}
             onClick={() => handleButtonClick("file")}
@@ -273,7 +281,7 @@ export default function Home() {
                     urlLodaing ? "cursor-wait" : " cursor-pointer"
                   }`}
                 >
-                  {urlLodaing ? "Loading..." : "Upload"}
+                  {urlLodaing ? "Loading..." : "Scan"}
                 </button>
               </div>
             </form>
