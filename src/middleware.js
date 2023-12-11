@@ -27,5 +27,7 @@ export const config = {
     '/about-us',
     '/login',
     '/signup',
+    '/scan-report/:path*',
+    '/url-report/:path*'
   ]
 }
