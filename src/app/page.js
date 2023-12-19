@@ -7,7 +7,6 @@ import { useCallback, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Home() {
-  
   const [searchType, setSearchType] = useState("url");
 
   const [lodaing, setLoading] = useState(false);
@@ -43,6 +42,7 @@ export default function Home() {
         );
 
         if (response?.data?.status) {
+          setSearch("");
           toast.success("Completed!", {
             position: "top-center",
             autoClose: 2000,
@@ -93,8 +93,8 @@ export default function Home() {
             timeout: 60000 * 2,
           }
         );
-        console.log("try... /api/url-scan/get-scans", response);
-        setUrlScanData(response?.data?.scans_data);
+        // console.log("try... /api/url-scan/get-scans", response?.data?.scans_data.reverse());
+        setUrlScanData(response?.data?.scans_data.reverse());
       } catch (error) {
         console.log("catch: ", error);
       }
@@ -184,7 +184,7 @@ export default function Home() {
           }
         );
         // console.log("try...", response.data.scans_data);
-        setScanData(response?.data?.scans_data);
+        setScanData(response?.data?.scans_data?.reverse());
       } catch (error) {
         console.log("catch: ", error);
       }

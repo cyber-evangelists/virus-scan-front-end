@@ -40,7 +40,7 @@ const LoginForm = () => {
         );
 
         setCookie("access_token_virus_scan", response.data.access_token, {
-          maxAge: 24 * 60 * 60 * 1000,
+          maxAge: 24 * 60 * 60,
         });
 
         router.push("/");
