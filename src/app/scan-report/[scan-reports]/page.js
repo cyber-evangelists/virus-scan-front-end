@@ -5,12 +5,12 @@ import { getCookie } from "cookies-next";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const page = () => {
+const Page = () => {
   const [scanData, setScanData] = useState([]);
   const [selectedKey, setSelectedKey] = useState(null);
   const [asideData, setAsideData] = useState([]);
   const [clickedKey, setClickedKey] = useState("");
-  const [otherScan, setOtherScan] = useState([])
+  // const [otherScan, setOtherScan] = useState([])
   const pathname = usePathname();
   const id = pathname.replace("/scan-report/", "");
 
@@ -143,7 +143,7 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
 
 const formatDate = (timestamp) => {
   const dateObject = new Date(timestamp);

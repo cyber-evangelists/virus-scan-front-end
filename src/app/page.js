@@ -149,7 +149,7 @@ export default function Home() {
         }
       } catch (error) {
         console.log("catch error: ", error);
-        toast.error("Something went wrong!", {
+        toast.error(error.response.data ||"Something went wrong!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
