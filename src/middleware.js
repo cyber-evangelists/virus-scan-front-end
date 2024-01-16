@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { NextRequest } from 'next/server'
  
 
 export function middleware(request) {
@@ -24,7 +23,6 @@ export function middleware(request) {
 export const config = {
   matcher: [
     '/',
-    '/about-us',
     '/login',
     '/signup',
     '/scan-report/:path*',

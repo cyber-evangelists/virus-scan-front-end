@@ -1,10 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { AiOutlineMenu } from "react-icons/ai";
 import NextLink from "next/link";
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
-const NavBar = ({ setIsOpen, isOpen, className, logoClassName, color }) => {
+const NavBar = ({ className, logoClassName, color }) => {
   const [activeLink, setActiveLink] = useState(null);
   const [scrollActive, setScrollActive] = useState(false);
   const [hovered, setHovered] = useState(-1);
@@ -134,25 +133,14 @@ NavBar.defaultProps = {
 };
 
 const navData = [
-  {
-    id: 1,
-    title: "About us",
-    link: "/about-us",
-  },
+  // {
+  //   id: 1,
+  //   title: "About us",
+  //   link: "/about-us",
+  // },
   // {
   //   id: 2,
   //   title: "Contact us",
   //   link: "/contact-us",
-  // },
-  // {
-  //   id: 3,
-  //   title: "login",
-  //   link: "/login",
-  //   //   menu: [
-  //   //     {
-  //   //       title: "Data and Artificial Intelligence",
-  //   //       link: "/what-we-do/artificial-intelligence",
-  //   //     },
-  //   //   ],
   // },
 ];
