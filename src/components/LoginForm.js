@@ -61,7 +61,7 @@ const LoginForm = () => {
       }
     } catch (error) {
       console.log("catch: ", error);
-      toast.error(error.response.data.detail || "something went wrong!!!", {
+      toast.error(error.response.data.detail === "Invalid password"? "Invalid username or password" : "something went wrong!!!", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
